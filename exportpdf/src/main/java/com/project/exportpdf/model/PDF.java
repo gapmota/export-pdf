@@ -2,18 +2,27 @@ package com.project.exportpdf.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author gamota
  *
  */
 
 public class PDF {
+	@JsonProperty
 	private int animalID;
+	@JsonProperty
 	private String animalName;
+	@JsonProperty
 	private Date lostDate;
+	@JsonProperty
 	private String animalInfos;
+	@JsonProperty
 	private String animalType;
+	@JsonProperty
 	private String animalImgPath;
+	@JsonProperty
 	private String animalSitePath;
 
 	public PDF(int animalID, String animalName, Date lostDate, String animalInfos, String animalType,
@@ -81,6 +90,13 @@ public class PDF {
 
 	public void setAnimalSitePath(String animalSitePath) {
 		this.animalSitePath = animalSitePath;
+	}
+
+	@Override
+	public String toString() {
+		return "PDF [animalID=" + animalID + ", animalName=" + animalName + ", lostDate=" + lostDate + ", animalInfos="
+				+ animalInfos + ", animalType=" + animalType + ", animalImgPath=" + animalImgPath + ", AnimalSitePath="
+				+ animalSitePath + "]";
 	}
 
 }
