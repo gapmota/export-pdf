@@ -1,7 +1,6 @@
 package com.project.exportpdf.model;
 
 import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**

@@ -1,8 +1,10 @@
-package com.project.exportpdf.controller;
+package com.project.exportpdf.model;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import com.project.exportpdf.model.PDF;
+
+import org.springframework.stereotype.Service;
+
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -20,6 +22,7 @@ import com.itextpdf.text.pdf.PdfWriter;
  *
  */
 
+@Service
 public class Export {
 
 	public void exportPDF(PDF infos) {
