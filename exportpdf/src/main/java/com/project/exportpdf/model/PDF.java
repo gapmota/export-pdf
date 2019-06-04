@@ -3,11 +3,6 @@ package com.project.exportpdf.model;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * @author gamota
- *
- */
-
 public class PDF {
 	@JsonProperty
 	private int animalID;

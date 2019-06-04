@@ -2,6 +2,7 @@ package com.project.exportpdf.model;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 import org.springframework.stereotype.Service;
 
@@ -17,14 +18,10 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BarcodeQRCode;
 import com.itextpdf.text.pdf.PdfWriter;
 
-/**
- * @author gamota
- *
- */
-
 @Service
 public class Export {
 
+	@SuppressWarnings("deprecation")
 	public void exportPDF(PDF infos) {
 		Document document = new Document();
 		try {
@@ -33,12 +30,16 @@ public class Export {
 					new FileOutputStream("src/lostPets/PDFs/" + infos.getAnimalID() + infos.getAnimalName() + ".pdf"));
 			document.open();
 
+			infos.getLostDate().setDate(infos.getLostDate().getDate() + 1);
+			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+			String data = formato.format(infos.getLostDate());
+
 			Paragraph pTitulo = (new Paragraph(
 					new Phrase(50F, "PROCURA-SE", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 48F))));
 			pTitulo.setAlignment(Element.ALIGN_CENTER);
 			document.add(pTitulo);
 
-			Paragraph pData = (new Paragraph("Perdido no dia: " + infos.getLostDate(),
+			Paragraph pData = (new Paragraph("Perdido no dia: " + data,
 					FontFactory.getFont(FontFactory.HELVETICA, 10)));
 			pData.setAlignment(Element.ALIGN_CENTER);
 			pData.setSpacingBefore(5);
@@ -51,18 +52,24 @@ public class Export {
 			document.add(codeQrImage);
 
 			Image imgAnimal = Image.getInstance(infos.getAnimalImgPath());
-			imgAnimal.setAbsolutePosition(120, 480);
-			imgAnimal.scaleAbsolute(350, 240);
+			imgAnimal.setAbsolutePosition(120, 400);
+			imgAnimal.scaleAbsolute(350, 310);
 			imgAnimal.setBorder(Rectangle.BOX);
 			imgAnimal.setBorderColor(BaseColor.BLACK);
 			imgAnimal.setBorderWidth(2f);
 			document.add(imgAnimal);
 
-			Paragraph pTitlePhone = (new Paragraph("Informações: ",
+			Paragraph pTituloInfos = (new Paragraph("Informações: ",
 					FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20)));
-			pTitlePhone.setAlignment(Element.ALIGN_CENTER);
-			pTitlePhone.setSpacingBefore(260);
-			document.add(pTitlePhone);
+			pTituloInfos.setAlignment(Element.ALIGN_CENTER);
+			pTituloInfos.setSpacingBefore(335);
+			document.add(pTituloInfos);
+			
+			Paragraph pInfos = (new Paragraph(infos.getAnimalInfos(),
+					FontFactory.getFont(FontFactory.HELVETICA, 15)));
+			pInfos.setAlignment(Element.ALIGN_CENTER);
+			pInfos.setSpacingBefore(10);
+			document.add(pInfos);
 
 		} catch (DocumentException de) {
 			System.err.println(de.getMessage());
