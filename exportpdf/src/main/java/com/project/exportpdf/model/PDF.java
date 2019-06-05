@@ -18,9 +18,20 @@ public class PDF {
 	private String animalImgPath;
 	@JsonProperty
 	private String animalSitePath;
+	@JsonProperty
+	private String ownerName;
+	@JsonProperty
+	private String ownerEmail;
+	@JsonProperty
+	private String ownerNumber;
+	@JsonProperty
+	private String howWasLost;
+	@JsonProperty
+	private String cepLost;
 
 	public PDF(int animalID, String animalName, Date lostDate, String animalInfos, String animalType,
-			String animalImgPath, String animalSitePath) {
+			String animalImgPath, String animalSitePath, String ownerName, String ownerEmail, String ownerNumber,
+			String howWasLost, String cepLost) {
 		this.animalID = animalID;
 		this.animalName = animalName;
 		this.lostDate = lostDate;
@@ -28,6 +39,11 @@ public class PDF {
 		this.animalType = animalType;
 		this.animalImgPath = animalImgPath;
 		this.animalSitePath = animalSitePath;
+		this.ownerName = ownerName;
+		this.ownerEmail = ownerEmail;
+		this.ownerNumber = ownerNumber;
+		this.howWasLost = howWasLost;
+		this.cepLost = cepLost;
 	}
 
 	public int getAnimalID() {
@@ -86,11 +102,53 @@ public class PDF {
 		this.animalSitePath = animalSitePath;
 	}
 
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
+	public String getOwnerEmail() {
+		return ownerEmail;
+	}
+
+	public void setOwnerEmail(String ownerEmail) {
+		this.ownerEmail = ownerEmail;
+	}
+
+	public String getOwnerNumber() {
+		return ownerNumber;
+	}
+
+	public void setOwnerNumber(String ownerNumber) {
+		this.ownerNumber = ownerNumber;
+	}
+
+	public String getHowWasLost() {
+		return howWasLost;
+	}
+
+	public void setHowWasLost(String howWasLost) {
+		this.howWasLost = howWasLost;
+	}
+
+	public String getCepLost() {
+		return cepLost;
+	}
+
+	public void setCepLost(String cepLost) {
+		this.cepLost = cepLost;
+	}
+
 	@Override
 	public String toString() {
-		return "PDF [animalID=" + animalID + ", animalName=" + animalName + ", lostDate=" + lostDate + ", animalInfos="
-				+ animalInfos + ", animalType=" + animalType + ", animalImgPath=" + animalImgPath + ", AnimalSitePath="
-				+ animalSitePath + "]";
+		return "InfoPet [animalID=" + animalID + ", animalName=" + animalName + ", lostDate=" + lostDate
+				+ ", animalInfos=" + animalInfos + ", animalType=" + animalType + ", animalImgPath=" + animalImgPath
+				+ ", animalSitePath=" + animalSitePath + ", ownerName=" + ownerName + ", ownerEmail=" + ownerEmail
+				+ ", ownerNumber=" + ownerNumber + ", ownerNumber=" + ownerNumber + ", howWasLost=" + howWasLost
+				+ ", cepLost=" + cepLost + "]";
 	}
 
 }

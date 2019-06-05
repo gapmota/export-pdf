@@ -40,7 +40,7 @@ public class Export {
 			document.add(pTitulo);
 
 			Paragraph pData = (new Paragraph("Perdido no dia: " + data,
-					FontFactory.getFont(FontFactory.HELVETICA, 10)));
+					FontFactory.getFont(FontFactory.HELVETICA, 12)));
 			pData.setAlignment(Element.ALIGN_CENTER);
 			pData.setSpacingBefore(5);
 			document.add(pData);
@@ -62,13 +62,15 @@ public class Export {
 			Paragraph pTituloInfos = (new Paragraph("Informações: ",
 					FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20)));
 			pTituloInfos.setAlignment(Element.ALIGN_CENTER);
-			pTituloInfos.setSpacingBefore(335);
+			pTituloInfos.setSpacingBefore(340);
 			document.add(pTituloInfos);
-			
-			Paragraph pInfos = (new Paragraph(infos.getAnimalInfos(),
+
+			Paragraph pInfos = (new Paragraph(
+					"\n" + infos.getAnimalInfos() + "\n" + infos.getHowWasLost() + "\n\nÚltima vez visto no CEP: "
+							+ infos.getCepLost() + "\n\nDono: " + infos.getOwnerName() + "\nContatos: "
+							+ infos.getOwnerNumber() + "\n" + infos.getOwnerEmail(),
 					FontFactory.getFont(FontFactory.HELVETICA, 15)));
 			pInfos.setAlignment(Element.ALIGN_CENTER);
-			pInfos.setSpacingBefore(10);
 			document.add(pInfos);
 
 		} catch (DocumentException de) {
