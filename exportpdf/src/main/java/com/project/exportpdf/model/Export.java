@@ -30,6 +30,8 @@ public class Export {
 					new FileOutputStream("src/lostPets/PDFs/" + infos.getAnimalID() + infos.getAnimalName() + ".pdf"));
 			document.open();
 
+			SearchCEP cep = new SearchCEP(infos.getCepLost());
+
 			infos.getLostDate().setDate(infos.getLostDate().getDate() + 1);
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			String data = formato.format(infos.getLostDate());
@@ -66,12 +68,25 @@ public class Export {
 			document.add(pTituloInfos);
 
 			Paragraph pInfos = (new Paragraph(
-					"\n" + infos.getAnimalInfos() + "\n" + infos.getHowWasLost() + "\n\nÚltima vez visto no CEP: "
-							+ infos.getCepLost() + "\n\nDono: " + infos.getOwnerName() + "\nContatos: "
-							+ infos.getOwnerNumber() + "\n" + infos.getOwnerEmail(),
+					"\n" + infos.getAnimalInfos() + "\n" + infos.getHowWasLost() + "\n\nVisto pela última vez: \n",
 					FontFactory.getFont(FontFactory.HELVETICA, 15)));
 			pInfos.setAlignment(Element.ALIGN_CENTER);
 			document.add(pInfos);
+
+			Paragraph pAdress = (new Paragraph(cep.getAdress() + ", " + cep.getDistrict() + ", " + cep.getUF(),
+					FontFactory.getFont(FontFactory.HELVETICA_BOLD, 15)));
+			pAdress.setAlignment(Element.ALIGN_CENTER);
+			document.add(pAdress);
+
+			Paragraph pOwner = (new Paragraph("\nDono: " + infos.getOwnerName(),
+					FontFactory.getFont(FontFactory.HELVETICA, 15)));
+			pOwner.setAlignment(Element.ALIGN_CENTER);
+			document.add(pOwner);
+
+			Paragraph pCont = (new Paragraph("\nContatos: " + infos.getOwnerNumber() + "\n" + infos.getOwnerEmail(),
+					FontFactory.getFont(FontFactory.HELVETICA_BOLD, 15)));
+			pCont.setAlignment(Element.ALIGN_CENTER);
+			document.add(pCont);
 
 		} catch (DocumentException de) {
 			System.err.println(de.getMessage());
