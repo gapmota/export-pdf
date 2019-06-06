@@ -2,6 +2,7 @@ package com.project.exportpdf.controller;
 
 import java.util.Date;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,7 @@ import com.project.exportpdf.model.PDF;
 public class RestExport {
 
 	@PostMapping
-	public void exportPDF(@RequestBody InfoPet pet) {
+	public ResponseEntity<String> exportPDF(@RequestBody InfoPet pet) {
 		pet.setAnimalImgPath("https://pbs.twimg.com/media/De9tDBUWAAABVxn.jpg");
 		pet.setAnimalSitePath("lospets.azurewebsites.net/lost/27");
 		PDF pdf = new PDF(pet.getAnimalID(), pet.getAnimalName(), pet.getLostDate(), pet.getAnimalInfos(),
@@ -25,7 +26,7 @@ public class RestExport {
 				pet.getOwnerEmail(), pet.getOwnerNumber(), pet.getHowWasLost(), pet.getCepLost());
 		Export arq = new Export();
 
-		arq.exportPDF(pdf);
+		return ResponseEntity.ok(arq.exportPDF(pdf));
 	}
 }
 

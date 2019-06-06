@@ -22,7 +22,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class Export {
 
 	@SuppressWarnings("deprecation")
-	public void exportPDF(PDF infos) {
+	public String exportPDF(PDF infos) {
 		Document document = new Document();
 		try {
 
@@ -79,5 +79,6 @@ public class Export {
 			System.err.println(ioe.getMessage());
 		}
 		document.close();
+		return "src/lostPets/PDFs/" + infos.getAnimalID() + infos.getAnimalName() + ".pdf";
 	}
 }
