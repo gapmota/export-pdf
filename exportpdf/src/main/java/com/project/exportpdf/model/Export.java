@@ -27,7 +27,7 @@ public class Export {
 		try {
 
 			PdfWriter.getInstance(document,
-					new FileOutputStream("src/lostPets/PDFs/" + infos.getAnimalID() + infos.getAnimalName() + ".pdf"));
+					new FileOutputStream("src/lostPets/PDFs/Cartaz_" + infos.getAnimalID() + infos.getAnimalName() + ".pdf"));
 			document.open();
 
 			SearchCEP cep = new SearchCEP(infos.getCepLost());
@@ -94,6 +94,6 @@ public class Export {
 			System.err.println(ioe.getMessage());
 		}
 		document.close();
-		return "src/lostPets/PDFs/" + infos.getAnimalID() + infos.getAnimalName() + ".pdf";
+		return "src/lostPets/PDFs/Cartaz_" + infos.getAnimalID() + infos.getAnimalName() + ".pdf";
 	}
 }
