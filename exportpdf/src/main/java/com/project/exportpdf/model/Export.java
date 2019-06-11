@@ -26,8 +26,8 @@ public class Export {
 		Document document = new Document();
 		try {
 
-			PdfWriter.getInstance(document,
-					new FileOutputStream("src/lostPets/PDFs/Cartaz_" + infos.getAnimalID() + infos.getAnimalName() + ".pdf"));
+			PdfWriter.getInstance(document, new FileOutputStream(
+					"src/lostPets/PDFs/Cartaz_" + infos.getAnimalID() + infos.getAnimalName() + ".pdf"));
 			document.open();
 
 			SearchCEP cep = new SearchCEP(infos.getCepLost());

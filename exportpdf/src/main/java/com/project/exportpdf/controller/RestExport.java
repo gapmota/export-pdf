@@ -16,18 +16,17 @@ import com.project.exportpdf.model.PDF;
 @RestController
 @RequestMapping("/exportpdf")
 public class RestExport {
+	PDF pdf;
+	Export arq;
 
 	@PostMapping
 	public ResponseEntity<String> exportPDF(@RequestBody InfoPet pet) {
-		/*
-		 * https://drive.google.com/open?id=ID_DA_IMAGEM
-		 */
-		pet.setAnimalImgPath("https://pbs.twimg.com/media/De9tDBUWAAABVxn.jpg");
-		pet.setAnimalSitePath("lospets.azurewebsites.net/lost/"+pet.getAnimalID());
-		PDF pdf = new PDF(pet.getAnimalID(), pet.getAnimalName(), pet.getLostDate(), pet.getAnimalInfos(),
+		pet.setAnimalSitePath("lospets.azurewebsites.net/lost/" + pet.getAnimalID());
+		pdf = new PDF(pet.getAnimalID(), pet.getAnimalName(), pet.getLostDate(), pet.getAnimalInfos(),
 				pet.getAnimalType(), pet.getAnimalImgPath(), pet.getAnimalSitePath(), pet.getOwnerName(),
 				pet.getOwnerEmail(), pet.getOwnerNumber(), pet.getHowWasLost(), pet.getCepLost());
-		Export arq = new Export();
+
+		arq = new Export();
 
 		return ResponseEntity.ok(arq.exportPDF(pdf));
 	}
