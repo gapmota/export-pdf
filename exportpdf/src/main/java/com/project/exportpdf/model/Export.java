@@ -3,7 +3,6 @@ package com.project.exportpdf.model;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.text.BaseColor;
@@ -21,8 +20,10 @@ import com.itextpdf.text.pdf.PdfWriter;
 @Service
 public class Export {
 
+	PDF infos;
 	@SuppressWarnings("deprecation")
 	public String exportPDF(PDF infos) {
+		this.infos = infos;
 		Document document = new Document();
 		try {
 
@@ -87,7 +88,7 @@ public class Export {
 					FontFactory.getFont(FontFactory.HELVETICA_BOLD, 15)));
 			pCont.setAlignment(Element.ALIGN_CENTER);
 			document.add(pCont);
-
+			
 		} catch (DocumentException de) {
 			System.err.println(de.getMessage());
 		} catch (IOException ioe) {
