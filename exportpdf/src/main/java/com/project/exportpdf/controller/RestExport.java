@@ -14,7 +14,7 @@ import com.project.exportpdf.model.PDF;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/exportpdf")
+@RequestMapping("/exprtpdf")
 public class RestExport {
 	PDF pdf;
 	Export arq;
