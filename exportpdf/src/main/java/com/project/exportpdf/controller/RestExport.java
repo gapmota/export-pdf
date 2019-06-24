@@ -28,7 +28,7 @@ public class RestExport {
 
 		arq = new Export();
 
-		return ResponseEntity.ok("https://drive.google.com/uc?id=" + arq.exportPDF(pdf));
+		return ResponseEntity.ok(arq.exportPDF(pdf));
 	}
 }
 
