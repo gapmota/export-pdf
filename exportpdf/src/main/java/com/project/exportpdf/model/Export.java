@@ -134,7 +134,7 @@ public class Export {
 			System.err.println(ioe.getMessage());
 		}
 
-		return retorno + "" + infos.getAnimalID() + infos.getAnimalName() + ".pdf";
+		return retorno;
 
 	}
 }
