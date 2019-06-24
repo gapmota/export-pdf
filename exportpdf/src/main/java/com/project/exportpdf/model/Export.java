@@ -1,14 +1,20 @@
 package com.project.exportpdf.model;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;
+
+import org.apache.commons.io.IOUtils;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.mock.web.MockMultipartFile;
+
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -20,6 +26,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BarcodeQRCode;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.project.exportpdf.service.GoogleDriveConfig;
 
 @Service
 public class Export {
@@ -30,6 +37,7 @@ public class Export {
 	public String exportPDF(PDF infos) {
 		this.infos = infos;
 		Document document = new Document();
+		String retorno = "";
 		try {
 
 			PdfWriter.getInstance(document, new FileOutputStream(
@@ -93,25 +101,40 @@ public class Export {
 					FontFactory.getFont(FontFactory.HELVETICA_BOLD, 15)));
 			pCont.setAlignment(Element.ALIGN_CENTER);
 			document.add(pCont);
+			document.close();
+
+			// File to MultipartFile
+			Path pathPdf = Paths
+					.get("/src/lostPets/PDFs/Cartaz_" + infos.getAnimalID() + infos.getAnimalName() + ".pdf");
+			String name = infos.getAnimalID() + infos.getAnimalName() + ".pdf";
+			String originalFileName = infos.getAnimalID() + infos.getAnimalName() + ".pdf";
+			String contentType = "application/pdf";
+			byte[] content = null;
+			try {
+				content = Files.readAllBytes(pathPdf);
+			} catch (final IOException e) {
+			}
+			MultipartFile result = new MockMultipartFile(name, originalFileName, contentType, content);
+
+			String path = "src/lostPets/PDFs/Cartaz_" + infos.getAnimalID() + infos.getAnimalName() + ".pdf";
+
+			InputStream is = new FileInputStream(path);
+
+			byte[] bytes = IOUtils.toByteArray(is);
+
+			try {
+				retorno = GoogleDriveConfig.uploadFile(bytes, path);
+			} catch (GeneralSecurityException e) {
+				e.printStackTrace();
+			}
 
 		} catch (DocumentException de) {
 			System.err.println(de.getMessage());
 		} catch (IOException ioe) {
 			System.err.println(ioe.getMessage());
 		}
-		document.close();
 
-		// File to MultipartFile
-		Path path = Paths.get("/src/lostPets/PDFs/Cartaz_" + infos.getAnimalID() + infos.getAnimalName() + ".pdf");
-		String name = infos.getAnimalID() + infos.getAnimalName() + ".pdf";
-		String originalFileName = infos.getAnimalID() + infos.getAnimalName() + ".pdf";
-		String contentType = "application/pdf";
-		byte[] content = null;
-		try {
-			content = Files.readAllBytes(path);
-		} catch (final IOException e) {
-		}
-		MultipartFile result = new MockMultipartFile(name, originalFileName, contentType, content);
-		return result + "";
+		return retorno + "" + infos.getAnimalID() + infos.getAnimalName() + ".pdf";
+
 	}
 }

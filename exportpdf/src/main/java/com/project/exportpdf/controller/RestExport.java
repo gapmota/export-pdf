@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,12 +14,12 @@ import com.project.exportpdf.model.PDF;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/exprtpdf")
+@RequestMapping("/exportpdf")
 public class RestExport {
 	PDF pdf;
 	Export arq;
 
-	@GetMapping
+	@PostMapping
 	public ResponseEntity<String> exportPDF(@RequestBody InfoPet pet) {
 		pet.setAnimalSitePath("lospets.azurewebsites.net/lost/" + pet.getAnimalID());
 		pdf = new PDF(pet.getAnimalID(), pet.getAnimalName(), pet.getLostDate(), pet.getAnimalInfos(),
@@ -28,7 +28,7 @@ public class RestExport {
 
 		arq = new Export();
 
-		return ResponseEntity.ok(arq.exportPDF(pdf));
+		return ResponseEntity.ok("https://drive.google.com/uc?id=" + arq.exportPDF(pdf));
 	}
 }
 
